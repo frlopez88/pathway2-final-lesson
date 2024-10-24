@@ -3,6 +3,7 @@ let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZi
 let endPoint = `https://qnfzizaesdfdijygrkkh.supabase.co/rest/v1/movies`
 
 let modalComments
+let modalMovies
 
 let commentsMovie = []
 
@@ -155,5 +156,48 @@ const onLoadMovies = () => {
 
     getMovies()
     getUserName()
+
+}
+
+
+const showModalMovies = ()=>{
+
+    modalMovies = new bootstrap.Modal(document.getElementById("modalMovies1"))
+    modalMovies.show()
+
+}
+
+
+const createMovie = async() =>{
+
+    let title = inputTitle.value
+    let rating = inputRating.value 
+    let genre = inputGenre.value
+     
+    let movie = {
+        title, 
+        rating, 
+        genre
+    }
+
+    let response = await fetch(endPoint, {
+        method : 'POST',
+        headers: {
+            'apikey' : token, 
+            'Authorization': token, 
+            'Content-Type' : 'application/json'
+        }, 
+        body : JSON.stringify(movie)
+    })
+
+    if (response.ok){
+
+        window.location = "movies.html"
+        
+    }else{
+        console.log("Movie wasn´t created")
+        let body  = await response.json()
+        console.log(body)
+    }
 
 }
