@@ -173,11 +173,13 @@ const createMovie = async() =>{
     let title = inputTitle.value
     let rating = inputRating.value 
     let genre = inputGenre.value
+    let comments = []
      
     let movie = {
         title, 
         rating, 
-        genre
+        genre, 
+        comments
     }
 
     let response = await fetch(endPoint, {
